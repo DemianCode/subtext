@@ -1,6 +1,6 @@
 # Subtext — Instant Dictionary & Encyclopedia HUD
 
-A state-of-the-art desktop browser reading companion extension built with Chrome Extension Manifest V3. Instant inline dictionary definitions, phonetic pronunciation with audio playback, persistent page annotations, and parallel encyclopedia side-panel exploration.
+A desktop browser reading companion extension built with Chrome Extension Manifest V3. Instant inline dictionary definitions, phonetic pronunciation with audio playback, persistent page annotations, and parallel encyclopedia side-panel exploration.
 
 ![Extension Architecture](https://img.shields.io/badge/Manifest-V3-indigo)
 ![UI Isolation](https://img.shields.io/badge/UI-Shadow%20DOM-cyan)
@@ -9,6 +9,8 @@ A state-of-the-art desktop browser reading companion extension built with Chrome
 ---
 
 ## 📦 Installation & Setup
+
+Visit the [Launch Page](https://demiancode.github.io/subtext/) to test the functionality without installation. Click 'Add to Chrome' to download the release zip.
 
 ### Option 1: Store Installation (No Developer Mode Required)
 To install the extension cleanly in one click without enabling Developer Mode:
