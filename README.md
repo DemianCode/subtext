@@ -8,6 +8,13 @@ A state-of-the-art desktop browser reading companion extension built with Chrome
 
 ---
 
+## Installation
+
+1. Visit the ![launch page](https://demiancode.github.io/subtext/)
+2. Click 'Add to Browser'
+3. Profit
+---
+
 ## 🚀 Key Features
 
 ### 1. 🎯 Floating Micro-Toolbar (HUD)
