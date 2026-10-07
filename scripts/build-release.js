@@ -25,7 +25,7 @@ console.log(`📦 Packaging Subtext v${version} into ${zipFileName}...`);
 try {
   if (process.platform === 'win32') {
     const includeStr = filesToInclude.map(f => `'${f}'`).join(',');
-    const psCmd = `powershell -Command "Compress-Archive -Path ${includeStr} -DestinationPath '${zipFilePath}' -Force"`;
+    const psCmd = `powershell -Command "$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path ${includeStr} -DestinationPath '${zipFilePath}' -Force"`;
     execSync(psCmd, { cwd: rootDir, stdio: 'inherit' });
   } else {
     const includeStr = filesToInclude.join(' ');

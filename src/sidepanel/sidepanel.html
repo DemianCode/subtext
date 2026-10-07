@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subtext Encyclopedia & Dictionary HUD</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body class="ctx-sidepanel-body">
+  <div class="sp-container">
+    <!-- Header -->
+    <header class="sp-header">
+      <div class="sp-brand">
+        <div class="sp-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div class="sp-brand-text">
+          <span class="sp-title">Subtext</span>
+          <span class="sp-subtitle">Side Panel HUD</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search Section -->
+    <div class="sp-search-section">
+      <div class="sp-search-box">
+        <svg class="sp-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="sp-search-input" placeholder="Search definition or article..." autocomplete="off">
+        <button id="sp-clear-btn" class="sp-clear-btn" title="Clear">✕</button>
+      </div>
+      <div class="sp-search-actions">
+        <button id="sp-btn-define" class="sp-action-btn active">Define</button>
+        <button id="sp-btn-explore" class="sp-action-btn">Encyclopedia</button>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="sp-main">
+      <!-- Welcome / Default State -->
+      <div id="sp-welcome-state" class="sp-state-view active">
+        <div class="sp-empty-card">
+          <div class="sp-empty-icon">📖</div>
+          <h3>Instant Reading Companion</h3>
+          <p>Select any word on a webpage or type a term above to explore dictionary definitions and encyclopedia articles.</p>
+        </div>
+
+        <div class="sp-quick-section">
+          <h4>Recent Lookups</h4>
+          <div id="sp-recent-list" class="sp-history-list">
+            <div class="sp-empty-history">No recent searches yet.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result View -->
+      <div id="sp-result-state" class="sp-state-view">
+        <div id="sp-result-content" class="sp-result-card">
+          <!-- Dynamic Content -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../utils/local_dictionary.js"></script>
+  <script src="../utils/api.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>
