@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subtext — Instant Dictionary & Encyclopedia HUD</title>
+
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #090d16;
+      --bg-card: #18181b;
+      --bg-card-hover: #27272a;
+      --border: rgba(255, 255, 255, 0.1);
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --chrome-brand: #4285f4;
+      --accent: #e4e4e7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Header */
+    .header-nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .brand-logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .brand-logo-badge svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link-item {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link-item:hover {
+      color: #ffffff;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      max-width: 900px;
+      margin: 60px auto 40px auto;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 36px auto;
+      line-height: 1.6;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-chrome-store {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: #ffffff;
+      color: #090d16;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+      transition: all 0.18s ease;
+    }
+
+    .btn-chrome-store:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-secondary-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .btn-secondary-dl:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    /* Live Interactive Sandbox */
+    .sandbox-container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .sandbox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .sandbox-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    .article-box {
+      background: #18181b;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .article-box h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 26px;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .article-box p {
+      font-family: 'Merriweather', serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #d4d4d8;
+      margin-bottom: 20px;
+    }
+
+    /* Features Grid */
+    .features-section {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .section-title-wrap {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .feature-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Installation Modal */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #18181b;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 540px;
+      width: 90%;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      color: var(--text-main);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .install-step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .step-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-info {
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .step-info strong {
+      color: #ffffff;
+    }
+
+    code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #e4e4e7;
+    }
+
+    .footer-section {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header class="header-nav">
+    <a href="#" class="nav-brand">
+      <div class="brand-logo-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+      </div>
+      <span class="brand-title">Subtext</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#features" class="nav-link-item">Features</a>
+      <a href="#demo" class="nav-link-item">Live Demo</a>
+      <a href="javascript:void(0)" onclick="openInstallModal()" class="nav-link-item">Installation Guide</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-badge">⚡ Sub-Millisecond Offline Engine & Shadow DOM Protection</div>
+    <h1 class="hero-title">Subtext</h1>
+    <p class="hero-subtitle">
+      Instant Dictionary & Encyclopedia HUD for desktop browser reading. Sub-millisecond definitions, phonetic audio, persistent page annotations, and parallel encyclopedia side panel.
+    </p>
+
+    <div class="hero-cta-group">
+      <!-- Chrome Web Store Link Button -->
+      <a href="https://chromewebstore.google.com/detail/YOUR_EXTENSION_ID" target="_blank" class="btn-chrome-store" id="add-to-chrome-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path fill="#EA4335" d="M12 12m-9.5 0a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0"/>
+          <path fill="#4285F4" d="M12 2.5A9.5 9.5 0 0 1 21.5 12h-9.5z"/>
+          <path fill="#FBBC05" d="M12 21.5A9.5 9.5 0 0 1 2.5 12h9.5z"/>
+          <path fill="#34A853" d="M2.5 12A9.5 9.5 0 0 1 12 2.5v9.5z"/>
+          <circle cx="12" cy="12" r="4" fill="#FFFFFF"/>
+          <circle cx="12" cy="12" r="3" fill="#1A73E8"/>
+        </svg>
+        Add to Chrome
+      </a>
+
+      <!-- Zip Download Button -->
+      <button class="btn-secondary-dl" onclick="triggerZipDownload()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Download Extension Package (.zip)
+      </button>
+    </div>
+  </section>
+
+  <!-- Live Sandbox Demo -->
+  <section id="demo" class="sandbox-container">
+    <div class="sandbox-header">
+      <div class="sandbox-label">
+        <span class="dot-live"></span> Interactive Live Playground (Try selecting text below)
+      </div>
+    </div>
+
+    <div class="article-box">
+      <h2>The Luminescence of Quantum Phenomena</h2>
+      <p>
+        Throughout human history, our fascination with the cosmos has been driven by a profound sense of <strong>serendipity</strong>. When we gaze into the nocturnal abyss, the faint <strong>luminescence</strong> emitted by distant galaxies reminds us of the subatomic balance governing particle interactions.
+      </p>
+      <p>
+        In physics, <strong>quantum</strong> mechanics provides the foundation for understanding atomic behavior. Subatomic particles exist in states of <strong>superposition</strong> until observed, creating an <strong>ephemeral</strong> dance of physical probability.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section id="features" class="features-section">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Engineered for Seamless Browser Reading</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-name">Sub-Millisecond Engine</div>
+        <div class="feature-desc">Embedded open-source dictionary database delivers instant (<1ms) lookups with zero network delay.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-name">Encyclopedia Side Panel</div>
+        <div class="feature-desc">Slide-out companion panel parallel to the webpage with Wikipedia extracts, structured sections, and topic search.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏷️</div>
+        <div class="feature-name">Persistent Highlights</div>
+        <div class="feature-desc">Defined words remain subtly marked on the page with customizable colors for instant hover/click re-lookup.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-name">4 Aesthetic Themes</div>
+        <div class="feature-desc">Minimal Dark, Nordic Slate, Warm Sepia, and Clean Light mode tailored to your reading setup.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⌨️</div>
+        <div class="feature-name">Global Hotkeys</div>
+        <div class="feature-desc">Trigger lookups instantly using <code>Alt+Shift+D</code> (Define) and <code>Alt+Shift+E</code> (Explore).</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-name">Shadow DOM Protection</div>
+        <div class="feature-desc">Complete CSS isolation guarantees extension UI never breaks host website layouts.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation Modal -->
+  <div class="modal-backdrop" id="install-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">How to Install Subtext in Google Chrome</div>
+        <button class="modal-close-btn" onclick="closeInstallModal()">✕</button>
+      </div>
+
+      <div class="install-step">
+        <div class="step-badge">1</div>
+        <div class="step-info">
+          <strong>Download & Extract Package:</strong><br>
+          Download the extension ZIP file and extract the folder to your computer.
+        </div>
+      </div>
+
+      <div class="install-step">
+        <div class="step-badge">2</div>
+        <div class="step-info">
+          <strong>Open Chrome Extensions:</strong><br>
+          Navigate to <code>chrome://extensions</code> in Chrome and turn ON <strong>Developer mode</strong> in the top-right corner.
+        </div>
+      </div>
+
+      <div class="install-step">
+        <div class="step-badge">3</div>
+        <div class="step-info">
+          <strong>Load Unpacked Extension:</strong><br>
+          Click <strong>Load unpacked</strong> and select the extracted extension folder. You're all set!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-section">
+    Subtext — Instant Dictionary & Encyclopedia HUD • Built for Chrome Manifest V3
+  </footer>
+
+  <script src="src/utils/local_dictionary.js"></script>
+  <script src="src/utils/api.js"></script>
+  <script src="src/content/content.js"></script>
+
+  <script>
+    function openInstallModal() {
+      document.getElementById('install-modal').classList.add('open');
+    }
+
+    function closeInstallModal() {
+      document.getElementById('install-modal').classList.remove('open');
+    }
+
+    function triggerZipDownload() {
+      openInstallModal();
+      alert("Download instructions opened! To package Subtext:\nSelect the folder 'c:\\Users\\edmon\\GH\\Chrome Extension for search and define' and zip it, or load directly unpacked in chrome://extensions.");
+    }
+
+    document.getElementById('add-to-chrome-btn').addEventListener('click', function(e) {
+      if (this.getAttribute('href').includes('YOUR_EXTENSION_ID')) {
+        e.preventDefault();
+        openInstallModal();
+      }
+    });
+  </script>
+</body>
+</html>

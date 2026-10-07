@@ -1,0 +1,674 @@
+/* ==========================================================================
+   Contextual Reading & Lookup Extension - Understated Theme Design System
+   Resists visual interference from host styles with full scoping.
+   ========================================================================== */
+
+:host {
+  all: initial;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Default Theme: Minimal Dark (Subtle Charcoal & Muted Accents) */
+.ctx-root-container,
+.ctx-root-container[data-theme="minimal-dark"] {
+  --ctx-bg-primary: #18181b;
+  --ctx-bg-secondary: #27272a;
+  --ctx-bg-glass: rgba(24, 24, 27, 0.94);
+  --ctx-bg-card: rgba(39, 39, 42, 0.75);
+  --ctx-border: rgba(255, 255, 255, 0.1);
+  --ctx-border-glow: rgba(255, 255, 255, 0.18);
+  
+  --ctx-text-main: #f4f4f5;
+  --ctx-text-muted: #a1a1aa;
+  --ctx-text-subtle: #71717a;
+
+  --ctx-accent-define-bg: rgba(255, 255, 255, 0.08);
+  --ctx-accent-define-border: rgba(255, 255, 255, 0.15);
+  --ctx-accent-define-text: #e4e4e7;
+  --ctx-accent-define-hover: #3f3f46;
+
+  --ctx-accent-explore-bg: rgba(255, 255, 255, 0.08);
+  --ctx-accent-explore-border: rgba(255, 255, 255, 0.15);
+  --ctx-accent-explore-text: #e4e4e7;
+  --ctx-accent-explore-hover: #3f3f46;
+
+  --ctx-highlight-bg: rgba(255, 255, 255, 0.12);
+  --ctx-highlight-border: #a1a1aa;
+
+  --ctx-shadow-hud: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 1px rgba(255, 255, 255, 0.1);
+  --ctx-shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.45);
+  --ctx-radius: 10px;
+  --ctx-radius-sm: 6px;
+  --ctx-radius-pill: 9999px;
+  --ctx-transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theme 2: Nordic Slate (Cool Muted Slate) */
+.ctx-root-container[data-theme="nordic-slate"] {
+  --ctx-bg-primary: #0f172a;
+  --ctx-bg-secondary: #1e293b;
+  --ctx-bg-glass: rgba(15, 23, 42, 0.94);
+  --ctx-bg-card: rgba(30, 41, 59, 0.75);
+  --ctx-border: rgba(255, 255, 255, 0.09);
+  --ctx-border-glow: rgba(56, 189, 248, 0.25);
+
+  --ctx-text-main: #f8fafc;
+  --ctx-text-muted: #94a3b8;
+  --ctx-text-subtle: #64748b;
+
+  --ctx-accent-define-bg: rgba(148, 163, 184, 0.12);
+  --ctx-accent-define-border: rgba(148, 163, 184, 0.2);
+  --ctx-accent-define-text: #cbd5e1;
+  --ctx-accent-define-hover: #334155;
+
+  --ctx-accent-explore-bg: rgba(56, 189, 248, 0.1);
+  --ctx-accent-explore-border: rgba(56, 189, 248, 0.25);
+  --ctx-accent-explore-text: #7dd3fc;
+  --ctx-accent-explore-hover: #0284c7;
+
+  --ctx-highlight-bg: rgba(56, 189, 248, 0.15);
+  --ctx-highlight-border: #38bdf8;
+}
+
+/* Theme 3: Warm Sepia (Subtle Parchment & Warm Stone) */
+.ctx-root-container[data-theme="warm-sepia"] {
+  --ctx-bg-primary: #1c1917;
+  --ctx-bg-secondary: #292524;
+  --ctx-bg-glass: rgba(28, 25, 23, 0.95);
+  --ctx-bg-card: rgba(41, 37, 36, 0.8);
+  --ctx-border: rgba(231, 229, 228, 0.1);
+  --ctx-border-glow: rgba(217, 119, 6, 0.25);
+
+  --ctx-text-main: #f5f5f4;
+  --ctx-text-muted: #a8a29e;
+  --ctx-text-subtle: #78716c;
+
+  --ctx-accent-define-bg: rgba(217, 119, 6, 0.12);
+  --ctx-accent-define-border: rgba(217, 119, 6, 0.25);
+  --ctx-accent-define-text: #fcd34d;
+  --ctx-accent-define-hover: #44403c;
+
+  --ctx-accent-explore-bg: rgba(217, 119, 6, 0.12);
+  --ctx-accent-explore-border: rgba(217, 119, 6, 0.25);
+  --ctx-accent-explore-text: #fcd34d;
+  --ctx-accent-explore-hover: #44403c;
+
+  --ctx-highlight-bg: rgba(217, 119, 6, 0.15);
+  --ctx-highlight-border: #f59e0b;
+}
+
+/* Theme 4: Minimal Light (Subtle Crisp Light Mode) */
+.ctx-root-container[data-theme="clean-light"] {
+  --ctx-bg-primary: #ffffff;
+  --ctx-bg-secondary: #f4f4f5;
+  --ctx-bg-glass: rgba(255, 255, 255, 0.96);
+  --ctx-bg-card: #f4f4f5;
+  --ctx-border: #e4e4e7;
+  --ctx-border-glow: #d4d4d8;
+
+  --ctx-text-main: #18181b;
+  --ctx-text-muted: #71717a;
+  --ctx-text-subtle: #a1a1aa;
+
+  --ctx-accent-define-bg: #f4f4f5;
+  --ctx-accent-define-border: #e4e4e7;
+  --ctx-accent-define-text: #18181b;
+  --ctx-accent-define-hover: #e4e4e7;
+
+  --ctx-accent-explore-bg: #f4f4f5;
+  --ctx-accent-explore-border: #e4e4e7;
+  --ctx-accent-explore-text: #18181b;
+  --ctx-accent-explore-hover: #e4e4e7;
+
+  --ctx-highlight-bg: rgba(0, 0, 0, 0.08);
+  --ctx-highlight-border: #71717a;
+
+  --ctx-shadow-hud: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.12);
+  --ctx-shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Base Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   1. FLOATING MICRO-TOOLBAR (HUD)
+   ========================================================================== */
+.ctx-hud-toolbar {
+  position: fixed;
+  z-index: 2147483645;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: var(--ctx-bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--ctx-border);
+  border-radius: var(--ctx-radius-pill);
+  box-shadow: var(--ctx-shadow-hud);
+  opacity: 0;
+  transform: translateY(4px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  user-select: none;
+}
+
+.ctx-hud-toolbar.ctx-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.ctx-hud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  background: var(--ctx-accent-define-bg);
+  border: 1px solid var(--ctx-accent-define-border);
+  border-radius: var(--ctx-radius-pill);
+  color: var(--ctx-accent-define-text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--ctx-transition);
+  white-space: nowrap;
+}
+
+.ctx-hud-btn:hover {
+  background: var(--ctx-accent-define-hover);
+  color: var(--ctx-text-main);
+  transform: translateY(-1px);
+}
+
+.ctx-hud-btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.ctx-hud-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--ctx-border);
+  margin: 0 2px;
+}
+
+.ctx-hud-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--ctx-text-muted);
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-hud-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ctx-text-main);
+}
+
+/* ==========================================================================
+   2. INLINE DEFINITION POPOVER CARD
+   ========================================================================== */
+.ctx-popover-card {
+  position: fixed;
+  z-index: 2147483646;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  background: var(--ctx-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--ctx-border-glow);
+  border-radius: var(--ctx-radius);
+  box-shadow: var(--ctx-shadow-lg);
+  padding: 14px 16px;
+  color: var(--ctx-text-main);
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.ctx-popover-card.ctx-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Header section */
+.ctx-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ctx-card-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ctx-card-word {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ctx-text-main);
+  letter-spacing: -0.01em;
+  text-transform: capitalize;
+}
+
+.ctx-card-phonetic-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1px;
+}
+
+.ctx-card-phonetic {
+  font-size: 12.5px;
+  color: var(--ctx-text-muted);
+  font-style: italic;
+}
+
+.ctx-card-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--ctx-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ctx-text-muted);
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-card-audio-btn:hover {
+  background: var(--ctx-accent-define-hover);
+  color: var(--ctx-text-main);
+}
+
+.ctx-card-audio-btn svg {
+  width: 11px;
+  height: 11px;
+}
+
+.ctx-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ctx-icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--ctx-text-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--ctx-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ctx-text-main);
+}
+
+.ctx-icon-btn.ctx-saved {
+  color: #f59e0b;
+}
+
+/* Card Body */
+.ctx-card-body {
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.ctx-meaning-block {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ctx-border);
+}
+
+.ctx-meaning-block:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.ctx-pos-tag {
+  display: inline-block;
+  padding: 1px 7px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ctx-text-muted);
+  border-radius: var(--ctx-radius-pill);
+  margin-bottom: 6px;
+}
+
+.ctx-def-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ctx-def-item {
+  font-size: 12.5px;
+  color: var(--ctx-text-main);
+  line-height: 1.45;
+  position: relative;
+  padding-left: 10px;
+}
+
+.ctx-def-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--ctx-text-muted);
+}
+
+.ctx-example {
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--ctx-text-muted);
+  font-style: italic;
+  padding-left: 6px;
+  border-left: 2px solid var(--ctx-border);
+}
+
+.ctx-synonyms-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.ctx-synonym-chip {
+  font-size: 10.5px;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--ctx-border);
+  border-radius: 4px;
+  color: var(--ctx-text-muted);
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-synonym-chip:hover {
+  background: var(--ctx-accent-define-hover);
+  color: var(--ctx-text-main);
+}
+
+/* Card Footer */
+.ctx-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ctx-border);
+}
+
+.ctx-footer-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ctx-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-footer-explore-btn:hover {
+  color: var(--ctx-text-main);
+  transform: translateX(2px);
+}
+
+.ctx-footer-clear-btn {
+  font-size: 11px;
+  color: var(--ctx-text-subtle);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-footer-clear-btn:hover {
+  color: #ef4444;
+}
+
+/* ==========================================================================
+   3. ENCYCLOPEDIA SIDE PANEL OVERLAY
+   ========================================================================== */
+.ctx-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 400px;
+  max-width: 100vw;
+  z-index: 2147483647;
+  background: var(--ctx-bg-primary);
+  border-left: 1px solid var(--ctx-border);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--ctx-text-main);
+  overflow: hidden;
+}
+
+.ctx-sidebar-overlay.ctx-open {
+  transform: translateX(0);
+}
+
+.ctx-sidebar-header {
+  padding: 14px 18px;
+  background: var(--ctx-bg-secondary);
+  border-bottom: 1px solid var(--ctx-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ctx-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ctx-text-main);
+}
+
+.ctx-sidebar-search-box {
+  position: relative;
+  flex: 1;
+  max-width: 200px;
+}
+
+.ctx-sidebar-search-input {
+  width: 100%;
+  padding: 5px 8px 5px 26px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--ctx-border);
+  border-radius: var(--ctx-radius-pill);
+  color: var(--ctx-text-main);
+  font-size: 12px;
+  outline: none;
+  transition: var(--ctx-transition);
+}
+
+.ctx-sidebar-search-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--ctx-text-muted);
+}
+
+.ctx-sidebar-search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ctx-text-subtle);
+  pointer-events: none;
+}
+
+.ctx-sidebar-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--ctx-text-muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-sidebar-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ctx-text-main);
+}
+
+/* Sidebar Scrollable Body */
+.ctx-sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+}
+
+.ctx-summary-card {
+  background: var(--ctx-bg-card);
+  border: 1px solid var(--ctx-border);
+  border-radius: var(--ctx-radius);
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.ctx-summary-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ctx-text-muted);
+  margin-bottom: 6px;
+}
+
+.ctx-summary-text {
+  font-size: 13px;
+  color: var(--ctx-text-main);
+  line-height: 1.55;
+}
+
+.ctx-accordion-item {
+  border: 1px solid var(--ctx-border);
+  border-radius: var(--ctx-radius-sm);
+  background: var(--ctx-bg-card);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.ctx-accordion-header {
+  padding: 10px 12px;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--ctx-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--ctx-transition);
+}
+
+.ctx-accordion-header:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ctx-accordion-body {
+  padding: 10px 12px;
+  border-top: 1px solid var(--ctx-border);
+  font-size: 12.5px;
+  color: var(--ctx-text-muted);
+  line-height: 1.5;
+}
+
+.ctx-external-wiki-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--ctx-border);
+  border-radius: var(--ctx-radius);
+  color: var(--ctx-text-main);
+  font-weight: 500;
+  font-size: 12.5px;
+  text-decoration: none;
+  transition: var(--ctx-transition);
+}
+
+.ctx-external-wiki-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Inline Highlight Pill */
+mark.ctx-lookup-highlight {
+  background-color: var(--ctx-highlight-bg) !important;
+  color: inherit !important;
+  border-bottom: 1.5px dashed var(--ctx-highlight-border) !important;
+  border-radius: 2px !important;
+  padding: 0 2px !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease !important;
+  display: inline !important;
+}
+
+mark.ctx-lookup-highlight:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Skeleton Loading Shimmer */
+.ctx-skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: ctx-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes ctx-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

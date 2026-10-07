@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contextual Reading & Lookup Extension — Interactive Showcase</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #121215 0%, #18181b 50%, #27272a 100%);
+      --card-bg: rgba(39, 39, 42, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-heading: #f4f4f5;
+      --text-body: #a1a1aa;
+      --accent: #e4e4e7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-body);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      line-height: 1.7;
+      padding-bottom: 80px;
+    }
+
+    /* Top Banner Navigation */
+    .hero-banner {
+      background: rgba(24, 24, 27, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 36px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .brand-logo svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-tag {
+      font-size: 11.5px;
+      color: var(--text-body);
+    }
+
+    .banner-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Theme Switcher Bar */
+    .theme-picker-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 4px;
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+    }
+
+    .theme-chip {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      border: none;
+      border-radius: 9999px;
+      background: transparent;
+      color: var(--text-body);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .theme-chip.active, .theme-chip:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    /* Highlight Control Bar */
+    .highlight-ctrl-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 4px 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      font-size: 11.5px;
+      color: #e4e4e7;
+    }
+
+    .swatches-inline {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swatch-btn {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .swatch-btn:hover {
+      transform: scale(1.2);
+    }
+
+    .swatch-btn.active {
+      border-color: #ffffff;
+    }
+
+    .btn-install-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: #ffffff;
+      color: #090d16;
+      border: none;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-install-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 860px;
+      margin: 36px auto;
+      padding: 0 20px;
+    }
+
+    .intro-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+
+    .intro-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .intro-desc {
+      font-size: 13.5px;
+      color: var(--text-body);
+    }
+
+    /* Article Reading Area */
+    .article-container {
+      background: rgba(24, 24, 27, 0.8);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 42px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+    }
+
+    .article-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 20px;
+    }
+
+    .article-meta {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a1a1aa;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .article-main-title {
+      font-family: 'Merriweather', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .article-author-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #a1a1aa;
+    }
+
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .article-body p {
+      font-family: 'Merriweather', serif;
+      font-size: 16.5px;
+      line-height: 1.8;
+      color: #e4e4e7;
+      margin-bottom: 22px;
+    }
+
+    .article-body h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 32px 0 14px 0;
+    }
+
+    .callout-quote {
+      border-left: 3px solid #71717a;
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+      font-style: italic;
+      color: #d4d4d8;
+    }
+
+    .sample-terms-bar {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sample-term-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #71717a;
+    }
+
+    .quick-try-btn {
+      padding: 3px 9px;
+      font-size: 11.5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 5px;
+      color: #e4e4e7;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .quick-try-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Hero Banner -->
+  <header class="hero-banner">
+    <div class="brand-title">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Contextual Reading & Lookup</div>
+        <div class="brand-tag">Desktop Browser Companion Extension</div>
+      </div>
+    </div>
+
+    <div class="banner-controls">
+      <!-- Live Theme Picker -->
+      <div class="theme-picker-bar">
+        <button class="theme-chip active" onclick="switchDemoTheme('minimal-dark', this)">Minimal Dark</button>
+        <button class="theme-chip" onclick="switchDemoTheme('nordic-slate', this)">Nordic Slate</button>
+        <button class="theme-chip" onclick="switchDemoTheme('warm-sepia', this)">Warm Sepia</button>
+        <button class="theme-chip" onclick="switchDemoTheme('clean-light', this)">Clean Light</button>
+      </div>
+
+      <!-- Live Highlight Color Picker -->
+      <div class="highlight-ctrl-bar">
+        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;">
+          <input type="checkbox" id="demo-toggle-hl" checked onchange="toggleDemoHighlight(this.checked)">
+          Highlight:
+        </label>
+        <div class="swatches-inline">
+          <button class="swatch-btn active" data-color="#818cf8" style="background:#818cf8;" onclick="pickDemoColor('#818cf8', this)"></button>
+          <button class="swatch-btn" data-color="#fbbf24" style="background:#fbbf24;" onclick="pickDemoColor('#fbbf24', this)"></button>
+          <button class="swatch-btn" data-color="#34d399" style="background:#34d399;" onclick="pickDemoColor('#34d399', this)"></button>
+          <button class="swatch-btn" data-color="#38bdf8" style="background:#38bdf8;" onclick="pickDemoColor('#38bdf8', this)"></button>
+          <button class="swatch-btn" data-color="#a1a1aa" style="background:#a1a1aa;" onclick="pickDemoColor('#a1a1aa', this)"></button>
+        </div>
+      </div>
+
+      <!-- Add to Chrome button -->
+      <a href="landing.html" class="btn-install-link">
+        Add to Chrome
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="intro-card">
+      <div class="intro-title">Persistent Highlight Settings & Theme Customization</div>
+      <p class="intro-desc">
+        Toggle page highlights ON/OFF or pick your custom highlight color using the controls above. Defined words will be marked with your chosen color!
+      </p>
+    </div>
+
+    <article class="article-container">
+      <header class="article-header">
+        <div class="article-meta">Science & Philosophy • 6 min read</div>
+        <h1 class="article-main-title">The Luminescence of Quantum Phenomena and Ephemeral Beauty</h1>
+        <div class="article-author-row">
+          <div class="author-avatar">DR</div>
+          <div>
+            <strong>Dr. Elena Rostova</strong> • Senior Fellow in Astrophysics
+          </div>
+        </div>
+      </header>
+
+      <div class="article-body">
+        <p>
+          Throughout human history, our fascination with the cosmos has been driven by a profound sense of <strong>serendipity</strong>. When we gaze into the nocturnal abyss, the faint <strong>luminescence</strong> emitted by distant galaxies reminds us of the delicate balance governing subatomic particles.
+        </p>
+
+        <div class="callout-quote">
+          "Nature does not reveal her secrets easily; it is through quiet observation and pragmatic inquiry that the underlying paradigm of quantum physics unveils itself."
+        </div>
+
+        <p>
+          In modern physics, <strong>quantum</strong> mechanics provides the foundation for understanding atomic behavior. At the smallest scales of reality, subatomic particles exist in states of <strong>superposition</strong> until observed. This remarkable property creates an <strong>ephemeral</strong> dance of probability, where energy quanta transition across energy states without intermediate pathways.
+        </p>
+
+        <h2>Cosmic Illumination and Deep Sea Bioluminescence</h2>
+
+        <p>
+          Beyond the vacuum of space, biological <strong>bioluminescence</strong> on Earth showcases the breathtaking versatility of organic chemical reactions. Deep-sea organisms emit bioluminescent light to navigate, attract prey, and communicate across vast oceanic abysses. This biological phenomenon echoes the physical emission of photons seen in high-energy laboratory experiments.
+        </p>
+
+        <p>
+          As researchers continue exploring the boundaries of <strong>astrophysics</strong> and theoretical particle dynamics, taking a <strong>pragmatic</strong> approach with <strong>empirical</strong> evidence serves as a <strong>catalyst</strong> for scientific breakthroughs.
+        </p>
+      </div>
+
+      <div class="sample-terms-bar">
+        <span class="sample-term-title">Instant Test Words:</span>
+        <button class="quick-try-btn" onclick="testTrigger('luminescence')">Define "luminescence"</button>
+        <button class="quick-try-btn" onclick="testTrigger('serendipity')">Define "serendipity"</button>
+        <button class="quick-try-btn" onclick="testTrigger('ephemeral')">Define "ephemeral"</button>
+        <button class="quick-try-btn" onclick="testTrigger('superposition')">Define "superposition"</button>
+        <button class="quick-try-btn" onclick="testTrigger('quantum')">Define "quantum"</button>
+      </div>
+    </article>
+  </main>
+
+  <script src="src/utils/local_dictionary.js"></script>
+  <script src="src/utils/api.js"></script>
+  <script src="src/content/content.js"></script>
+
+  <script>
+    function switchDemoTheme(themeName, btn) {
+      document.querySelectorAll('.theme-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+
+      const shadowContainer = document.querySelector('#ctx-lookup-extension-root')?.shadowRoot?.querySelector('.ctx-root-container');
+      if (shadowContainer) {
+        shadowContainer.setAttribute('data-theme', themeName);
+      }
+    }
+
+    function toggleDemoHighlight(enable) {
+      window.postMessage({ action: 'UPDATE_HIGHLIGHT_SETTINGS', settings: { enableHighlight: enable } }, '*');
+      document.dispatchEvent(new CustomEvent('UPDATE_HIGHLIGHT_SETTINGS', { detail: { enableHighlight: enable } }));
+    }
+
+    function pickDemoColor(colorHex, btn) {
+      document.querySelectorAll('.swatch-btn').forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      window.postMessage({ action: 'UPDATE_HIGHLIGHT_SETTINGS', settings: { highlightColor: colorHex } }, '*');
+      document.dispatchEvent(new CustomEvent('UPDATE_HIGHLIGHT_SETTINGS', { detail: { highlightColor: colorHex } }));
+    }
+
+    function testTrigger(term) {
+      const bodyText = document.querySelector('.article-body');
+      if (!bodyText) return;
+
+      const walker = document.createTreeWalker(bodyText, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      while (node = walker.nextNode()) {
+        const idx = node.textContent.toLowerCase().indexOf(term.toLowerCase());
+        if (idx !== -1) {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + term.length);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+
+          const rect = range.getBoundingClientRect();
+          const evt = new MouseEvent('mouseup', {
+            bubbles: true,
+            clientX: rect.left + rect.width / 2,
+            clientY: rect.top
+          });
+          document.dispatchEvent(evt);
+          break;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

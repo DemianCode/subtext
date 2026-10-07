@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subtext Companion</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">Subtext</span>
+          <span class="subtitle">Reading & Lookup HUD</span>
+        </div>
+      </div>
+      <span class="status-badge"><span class="dot"></span> Active</span>
+    </header>
+
+    <!-- Instant Search Bar -->
+    <div class="search-section">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="quick-search-input" placeholder="Type word or topic to lookup..." autocomplete="off">
+        <div class="search-actions">
+          <button id="search-define-btn" title="Lookup Definition">Define</button>
+          <button id="search-explore-btn" title="Explore Article">Explore</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="recent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Recent
+      </button>
+      <button class="tab-btn" data-tab="saved">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        Saved
+      </button>
+      <button class="tab-btn" data-tab="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </button>
+    </nav>
+
+    <!-- Tab Contents -->
+    <main class="content-area">
+      <!-- Recent Lookups Tab -->
+      <section id="tab-recent" class="tab-pane active">
+        <div id="recent-list" class="item-list">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- Saved Vocabulary Tab -->
+      <section id="tab-saved" class="tab-pane">
+        <div id="saved-list" class="item-list">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- Settings & Highlight Preferences -->
+      <section id="tab-settings" class="tab-pane">
+        <div class="settings-group">
+          <!-- Theme Picker -->
+          <div class="setting-row-block">
+            <label class="setting-label-title" for="theme-select">Appearance Theme</label>
+            <select id="theme-select" class="theme-dropdown">
+              <option value="minimal-dark">Minimal Dark (Default Charcoal)</option>
+              <option value="nordic-slate">Nordic Slate (Cool Navy)</option>
+              <option value="warm-sepia">Warm Sepia (Warm Stone)</option>
+              <option value="clean-light">Clean Light (Minimalist White)</option>
+            </select>
+          </div>
+
+          <!-- Highlight Toggle -->
+          <div class="setting-row-toggle">
+            <div class="setting-text-wrap">
+              <span class="setting-label-title">Keep Word Highlight on Page</span>
+              <span class="setting-desc">Leaves a subtle highlight on defined words for instant hover/click re-lookup.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-highlight" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Highlight Color Picker -->
+          <div class="setting-row-block" id="color-picker-section">
+            <label class="setting-label-title">Highlight Color</label>
+            <div class="color-swatches">
+              <button class="color-swatch active" data-color="#818cf8" style="background-color: #818cf8;"></button>
+              <button class="color-swatch" data-color="#fbbf24" style="background-color: #fbbf24;"></button>
+              <button class="color-swatch" data-color="#34d399" style="background-color: #34d399;"></button>
+              <button class="color-swatch" data-color="#38bdf8" style="background-color: #38bdf8;"></button>
+              <button class="color-swatch" data-color="#a1a1aa" style="background-color: #a1a1aa;"></button>
+              <input type="color" id="custom-color-input" value="#818cf8" title="Custom color picker">
+            </div>
+          </div>
+        </div>
+
+        <button id="clear-annotations-btn" class="secondary-btn danger-btn">
+          Clear All Page Annotations
+        </button>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <a href="../options/options.html" target="_blank" class="options-link">
+        Open Full Preferences
+      </a>
+    </footer>
+  </div>
+
+  <script src="../utils/api.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

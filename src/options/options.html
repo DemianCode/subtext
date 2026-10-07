@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subtext — Preferences & Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-wrapper">
+    <header class="header">
+      <div class="header-content">
+        <div class="brand">
+          <div class="logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Subtext Preferences</h1>
+            <p>Configure theme preferences, visual indicators, and vocabulary export.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-container">
+      <!-- Section 1: Themes & Appearance -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Appearance & Themes</h2>
+          <p>Choose an understated, high-contrast, or warm color palette for popovers and sidebar.</p>
+        </div>
+        <div class="card-body">
+          <div class="setting-row">
+            <div>
+              <strong>Color Palette Theme</strong>
+              <div class="sub-text">Applies across floating micro-toolbars, definition cards, and encyclopedia side panel.</div>
+            </div>
+            <select id="opt-theme" class="select-input">
+              <option value="minimal-dark">Minimal Dark (Default Charcoal)</option>
+              <option value="nordic-slate">Nordic Slate (Cool Navy)</option>
+              <option value="warm-sepia">Warm Sepia (Warm Stone)</option>
+              <option value="clean-light">Clean Light (Minimalist White)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Persistent Page Highlights -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Persistent Page Annotations & Highlight Customization</h2>
+          <p>Control whether defined words remain highlighted on the page and choose your custom highlight color.</p>
+        </div>
+        <div class="card-body">
+          <div class="setting-row">
+            <div>
+              <strong>Keep Word Highlight on Page</strong>
+              <div class="sub-text">Marks defined words with a persistent subtle highlight for instant hover/click re-lookup.</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="opt-toggle-highlight" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row" id="opt-color-row">
+            <div>
+              <strong>Highlight Color</strong>
+              <div class="sub-text">Pick your preferred highlight fill and dashed underline color.</div>
+            </div>
+            <div class="color-picker-group">
+              <input type="color" id="opt-color-picker" value="#818cf8" class="color-input">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Shortcuts Overview -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Keyboard Shortcuts Reference</h2>
+          <p>Global hotkeys to trigger actions on active text selection.</p>
+        </div>
+        <div class="card-body">
+          <div class="shortcut-item">
+            <div>
+              <strong>Define Selection</strong>
+              <div class="sub-text">Displays inline definition popover card anchored to text selection.</div>
+            </div>
+            <kbd>Alt + Shift + D</kbd>
+          </div>
+
+          <div class="shortcut-item">
+            <div>
+              <strong>Explore Article</strong>
+              <div class="sub-text">Opens companion side panel parallel to page with structured encyclopedia reference.</div>
+            </div>
+            <kbd>Alt + Shift + E</kbd>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Storage & Export -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Saved Vocabulary & Storage</h2>
+          <p>Manage stored words and export reference dictionary notes.</p>
+        </div>
+        <div class="card-body">
+          <div class="btn-group">
+            <button id="export-json-btn" class="btn primary-btn">Export Vocabulary (JSON)</button>
+            <button id="clear-cache-btn" class="btn danger-btn">Clear Cached Lookups</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
