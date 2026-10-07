@@ -578,7 +578,7 @@
 
     function triggerZipDownload() {
       openInstallModal();
-      alert("Download instructions opened! To package Subtext:\nSelect the folder 'c:\\Users\\edmon\\GH\\Chrome Extension for search and define' and zip it, or load directly unpacked in chrome://extensions.");
+      window.open('https://github.com/DemianCode/subtext/releases', '_blank');
     }
 
     document.getElementById('add-to-chrome-btn').addEventListener('click', function(e) {

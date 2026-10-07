@@ -8,12 +8,46 @@ A state-of-the-art desktop browser reading companion extension built with Chrome
 
 ---
 
-## Installation
+## 📦 Installation & Setup
 
-1. Visit the [launch page](https://demiancode.github.io/subtext/)
-2. Click 'Add to Browser'
-3. Profit
+### Option 1: Store Installation (No Developer Mode Required)
+To install the extension cleanly in one click without enabling Developer Mode:
+1. **Chrome Web Store / Edge Add-ons**: Publish the release zip to the [Chrome Developer Dashboard](https://chrome.google.com/webstore/devconsole/) or Microsoft Edge Partner Center. Once approved, users can install directly via the browser store.
+2. **Firefox Add-ons (AMO)**: Submit the zip for signed distribution (listed or unlisted `.xpi`), allowing single-click installation without Developer Mode.
+
 ---
+
+### Option 2: Local Development (Requires Developer Mode)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DemianCode/subtext.git
+   ```
+2. Open your browser extension management page:
+   - **Chrome / Edge / Brave**: Navigate to `chrome://extensions` or `edge://extensions`
+   - Enable **Developer Mode** (top-right toggle switch).
+3. Click **Load unpacked** and select the repository root folder.
+
+---
+
+## 🛠️ Creating & Building Releases
+
+### Local Build
+To generate a standalone `.zip` distribution file locally:
+
+```bash
+npm run build
+```
+*(or `node scripts/build-release.js`)*
+
+This creates `dist/subtext-v1.2.0.zip` containing all required extension assets (`manifest.json`, `src/`, `icons/`).
+
+---
+
+### Automated GitHub Actions Build (Online)
+A GitHub Actions workflow ([`release.yml`](file:///.github/workflows/release.yml)) is configured to build the release `.zip` automatically:
+1. **Manual Run (Online)**: Go to the **Actions** tab on your GitHub repository -> Select **Build & Packaging Release** -> Click **Run workflow**. Download the built `.zip` directly from **Artifacts**.
+2. **Automatic Tag Release**: Pushing a git tag (e.g. `git tag v1.2.0 && git push origin v1.2.0`) automatically builds the extension and creates a new **GitHub Release** with the downloadable `.zip` attached.
+
 
 ## 🚀 Key Features
 
